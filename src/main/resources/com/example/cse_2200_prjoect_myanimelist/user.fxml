@@ -10,5 +10,18 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.cse_2200_prjoect_myanimelist.User"
             prefHeight="400.0" prefWidth="600.0">
-
+    <children>
+        <Label layoutX="50.0" layoutY="30.0" text="Welcome to User Dashboard" />
+        <Button fx:id="logoutButton" layoutX="500.0" layoutY="30.0" text="Logout" />
+        <TableView fx:id="animeTable" layoutX="50.0" layoutY="80.0" prefHeight="300.0" prefWidth="500.0">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" />
+                <TableColumn fx:id="nameColumn" text="Name" />
+                <TableColumn fx:id="imageColumn" text="Image URL" />
+                <TableColumn fx:id="descriptionColumn" text="Description" />
+                <TableColumn fx:id="episodesColumn" text="Episodes" />
+                <TableColumn fx:id="releaseDateColumn" text="Release Date" />
+            </columns>
+        </TableView>
+    </children>
 </AnchorPane>

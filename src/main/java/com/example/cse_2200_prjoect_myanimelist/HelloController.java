@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -62,7 +63,14 @@ public class HelloController implements Initializable {
                 String storedPassword = rs.getString("user_password");
                 if (storedPassword.equals(userPassword)) {
                     // Password matches, proceed to the next scene or action
-                    System.out.println("Login successful");
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("user.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load());
+                    Stage stage = (Stage) login.getScene().getWindow();
+                    Image icon = new Image(getClass().getResourceAsStream("usericon.png")); // path to the icon
+                    stage.getIcons().add(icon);
+                    stage.setScene(scene);
+                    stage.setTitle("User Dashboard");
+                    stage.show();
                 } else {
                     // Password does not match
                     showAlert(Alert.AlertType.ERROR, "Login Failed", "Wrong Password");
@@ -73,6 +81,8 @@ public class HelloController implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
     private void showAlert(Alert.AlertType alertType, String title, String message) {
