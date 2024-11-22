@@ -10,15 +10,14 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@hello-view.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@hello-view.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cse_2200_prjoect_myanimelist.HelloController">
    <children>
       <Line endX="-15.0" endY="302.0" layoutX="247.0" layoutY="98.0" startX="-15.0" startY="-98.0" />
-      <TextField layoutX="300.0" layoutY="148.0" promptText="Enter email" styleClass="text-field" stylesheets="@hello-view.css" />
-      <PasswordField fx:id="heading" layoutX="300.0" layoutY="242.0" promptText="Password" styleClass="password-field" stylesheets="@hello-view.css" />
-      <Button layoutX="350.0" layoutY="283.0" mnemonicParsing="false" stylesheets="@hello-view.css" text="Log In" />
-      <Button layoutX="350.0" layoutY="331.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" stylesheets="@hello-view.css" text="SIgn Up" />
-      <ImageView fitHeight="365.0" fitWidth="230.0" layoutY="18.0" pickOnBounds="true">
+      <TextField fx:id="email" layoutX="300.0" layoutY="148.0" promptText="Enter email" styleClass="text-field" stylesheets="@hello-view.css" />
+      <PasswordField fx:id="password" layoutX="300.0" layoutY="242.0" promptText="Password" styleClass="password-field" stylesheets="@hello-view.css" />
+      <Button fx:id="login" layoutX="350.0" layoutY="283.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" stylesheets="@hello-view.css" text="Log In" />
+      <Button fx:id="signup" layoutX="350.0" layoutY="331.0" mnemonicParsing="false" onAction="#handleSignUpButtonAction" prefHeight="30.0" prefWidth="62.0" stylesheets="@hello-view.css" text="SIgn Up" />
+      <ImageView fx:id="sideimage" fitHeight="365.0" fitWidth="230.0" layoutY="18.0" pickOnBounds="true">
          <image>
             <Image url="@loginpageside.jpg" />
          </image>

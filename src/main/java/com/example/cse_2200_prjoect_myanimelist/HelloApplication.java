@@ -14,7 +14,7 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("MyAnimeList");
-        Image icon = new Image(getClass().getResourceAsStream("titleicon.png")); // Adjust path if needed
+        Image icon = new Image(getClass().getResourceAsStream("titleicon.png")); // path to the icon
         stage.getIcons().add(icon);
         stage.setScene(scene);
         stage.setResizable(false);
