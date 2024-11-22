@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.cse_2200_prjoect_myanimelist.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@hello-view.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Line endX="-15.0" endY="302.0" layoutX="247.0" layoutY="98.0" startX="-15.0" startY="-98.0" />
+      <TextField layoutX="300.0" layoutY="148.0" promptText="Enter email" styleClass="text-field" stylesheets="@hello-view.css" />
+      <PasswordField fx:id="heading" layoutX="300.0" layoutY="242.0" promptText="Password" styleClass="password-field" stylesheets="@hello-view.css" />
+      <Button layoutX="350.0" layoutY="283.0" mnemonicParsing="false" stylesheets="@hello-view.css" text="Log In" />
+      <Button layoutX="350.0" layoutY="331.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" stylesheets="@hello-view.css" text="SIgn Up" />
+      <ImageView fitHeight="365.0" fitWidth="230.0" layoutY="18.0" pickOnBounds="true">
+         <image>
+            <Image url="@loginpageside.jpg" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="288.0" layoutY="31.0" prefHeight="78.0" prefWidth="223.0" stylesheets="@hello-view.css" text="My AnimeList">
+         <font>
+            <Font name="RomanD" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
