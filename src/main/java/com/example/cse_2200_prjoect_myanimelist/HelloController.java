@@ -21,7 +21,7 @@ public class HelloController implements Initializable {
     private static final String pass = "11010347";
     @FXML
     private TextField email;
-
+    private static String user_id;
     @FXML
     private Button login;
 
@@ -62,14 +62,16 @@ public class HelloController implements Initializable {
             if (rs.next()) {
                 String storedPassword = rs.getString("user_password");
                 if (storedPassword.equals(userPassword)) {
+                    user_id = rs.getString("user_no");
                     // Password matches, proceed to the next scene or action
+                    //System.out.println(user_id);
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("user.fxml"));
                     Scene scene = new Scene(fxmlLoader.load());
                     Stage stage = (Stage) login.getScene().getWindow();
                     Image icon = new Image(getClass().getResourceAsStream("usericon.png")); // path to the icon
                     stage.getIcons().add(icon);
                     stage.setScene(scene);
-                    stage.setTitle("User Dashboard");
+                    stage.setTitle(userEmail + "'s" +" Dashboard");
                     stage.show();
                 } else {
                     // Password does not match
@@ -91,5 +93,8 @@ public class HelloController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+    public static String getUser_id(){
+        return user_id;
     }
 }

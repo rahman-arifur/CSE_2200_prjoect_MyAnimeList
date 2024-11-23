@@ -1,31 +1,19 @@
 package com.example.cse_2200_prjoect_myanimelist;
-
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-import static java.lang.Integer.parseInt;
-
-public class User implements Initializable {
+public class AddAnimeController implements Initializable {
     @FXML
-    private Button logoutButton;
-    private String user_id;
-    @FXML
-    private Button addAnimeButton;
-
-    @FXML
-    private TableView<Anime> animeTable;
+    private TableView<Anime> unwatchedAnimeTable;
 
     @FXML
     private TableColumn<Anime, String> nameColumn;
@@ -48,7 +36,6 @@ public class User implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        user_id = HelloController.getUser_id();
         // Initialize the table columns
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         ratingColumn.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
@@ -56,15 +43,14 @@ public class User implements Initializable {
         releaseYearColumn.setCellValueFactory(cellData -> cellData.getValue().releaseYearProperty().asObject());
         genreColumn.setCellValueFactory(cellData -> cellData.getValue().genreProperty());
 
-        // Load watched animes
-        loadWatchedAnimes();
+        // Load unwatched animes
+        loadUnwatchedAnimes();
     }
 
-    private void loadWatchedAnimes() {
+    private void loadUnwatchedAnimes() {
         String query = "SELECT a.name, a.rating, a.episodes, a.release_year, a.genre " +
                 "FROM animeinfo a " +
-                "JOIN user_anime ua ON a.id = ua.anime_id " +
-                "WHERE ua.user_no = ?";
+                "WHERE a.id NOT IN (SELECT ua.anime_id FROM user_anime ua WHERE ua.user_no = ?)";
 
         try (Connection conn = DriverManager.getConnection(url, user, pass);
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -79,38 +65,39 @@ public class User implements Initializable {
                         rs.getInt("release_year"),
                         rs.getString("genre")
                 );
-                animeTable.getItems().add(anime);
+                unwatchedAnimeTable.getItems().add(anime);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    @FXML
+    private Button addSelectedAnimeButton = new Button();
 
     @FXML
-    private void handleLogoutButtonAction() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = (Stage) logoutButton.getScene().getWindow();
-        stage.setTitle("MyAnimeList");
-        Image icon = new Image(getClass().getResourceAsStream("titleicon.png")); // path to the icon
-        stage.getIcons().add(icon);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+    private void handleAddSelectedAnimeButtonAction(ActionEvent e) {
+        Anime selectedAnime = unwatchedAnimeTable.getSelectionModel().getSelectedItem();
+        if (selectedAnime != null) {
+            addAnimeToUserWatchlist(selectedAnime);
+            ((Stage) addSelectedAnimeButton.getScene().getWindow()).close();
+
+        }
     }
 
-    @FXML
-    private void handleAddAnimeButtonAction() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-anime-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-        stage.setTitle("Add Anime");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+    private void addAnimeToUserWatchlist(Anime anime) {
+        String query = "INSERT INTO user_anime (user_no, anime_id) VALUES (?, (SELECT id FROM animeinfo WHERE name = ?))";
+
+        try (Connection conn = DriverManager.getConnection(url, user, pass);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, getCurrentUserId()); // Replace with actual user ID retrieval logic
+            stmt.setString(2, anime.nameProperty().get());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private int getCurrentUserId() {
-        return Integer.parseInt(user_id);
+        return Integer.parseInt(HelloController.getUser_id());
     }
 }
