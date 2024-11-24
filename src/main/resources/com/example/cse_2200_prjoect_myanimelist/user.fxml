@@ -13,12 +13,13 @@
         <Button fx:id="addAnimeButton" layoutX="400.0" layoutY="30.0" onAction="#handleAddAnimeButtonAction" text="Add Anime" />
         <TableView fx:id="animeTable" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0">
             <columns>
-                <TableColumn fx:id="nameColumn" text="Name" prefWidth="150.0" />
-                <TableColumn fx:id="ratingColumn" text="Rating" prefWidth="100.0" />
-                <TableColumn fx:id="episodesColumn" text="Episodes" prefWidth="100.0" />
-                <TableColumn fx:id="releaseYearColumn" text="Release Year" prefWidth="100.0" />
-                <TableColumn fx:id="genreColumn" text="Genre" prefWidth="150.0" />
+                <TableColumn fx:id="nameColumn" prefWidth="150.0" text="Name" />
+                <TableColumn fx:id="ratingColumn" prefWidth="100.0" text="Rating" />
+                <TableColumn fx:id="episodesColumn" prefWidth="100.0" text="Episodes" />
+                <TableColumn fx:id="releaseYearColumn" prefWidth="100.0" text="Release Year" />
+                <TableColumn fx:id="genreColumn" prefWidth="150.0" text="Genre" />
             </columns>
         </TableView>
+      <Button layoutX="341.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleRefreshButtonAction" text="Refresh" />
     </children>
 </AnchorPane>

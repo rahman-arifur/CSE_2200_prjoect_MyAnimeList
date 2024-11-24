@@ -106,8 +106,15 @@ public class User implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Add Anime");
         stage.setScene(scene);
+
         stage.setResizable(false);
         stage.show();
+    }
+
+    @FXML
+    private void handleRefreshButtonAction() {
+        animeTable.getItems().clear();
+        loadWatchedAnimes();
     }
 
     private int getCurrentUserId() {

@@ -68,8 +68,8 @@ public class HelloController implements Initializable {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("user.fxml"));
                     Scene scene = new Scene(fxmlLoader.load());
                     Stage stage = (Stage) login.getScene().getWindow();
-                    Image icon = new Image(getClass().getResourceAsStream("usericon.png")); // path to the icon
-                    stage.getIcons().add(icon);
+//                    Image icon = new Image(getClass().getResourceAsStream("usericon.png")); // path to the icon
+//                    stage.getIcons().add(icon);
                     stage.setScene(scene);
                     stage.setTitle(userEmail + "'s" +" Dashboard");
                     stage.show();
@@ -97,4 +97,5 @@ public class HelloController implements Initializable {
     public static String getUser_id(){
         return user_id;
     }
+
 }

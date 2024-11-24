@@ -100,4 +100,5 @@ public class AddAnimeController implements Initializable {
     private int getCurrentUserId() {
         return Integer.parseInt(HelloController.getUser_id());
     }
+    
 }
