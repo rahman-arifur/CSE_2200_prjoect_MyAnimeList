@@ -117,7 +117,29 @@ public class User implements Initializable {
         loadWatchedAnimes();
     }
 
-    private int getCurrentUserId() {
+    private Integer getCurrentUserId() {
         return Integer.parseInt(user_id);
+    }
+
+    @FXML
+    private void handleRemoveAnimeButtonAction() {
+        Anime selectedAnime = animeTable.getSelectionModel().getSelectedItem();
+        if (selectedAnime != null) {
+            removeAnimeFromUserWatchlist(selectedAnime);
+            animeTable.getItems().remove(selectedAnime);
+        }
+    }
+
+    private void removeAnimeFromUserWatchlist(Anime anime) {
+        String query = "DELETE FROM user_anime WHERE user_no = ? AND anime_id = ?";
+
+        try (Connection conn = DriverManager.getConnection(url, user, pass);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, getCurrentUserId());
+            stmt.setInt(2, AddAnimeController.getAnimeIdByName(anime.nameProperty().get().toString()));
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

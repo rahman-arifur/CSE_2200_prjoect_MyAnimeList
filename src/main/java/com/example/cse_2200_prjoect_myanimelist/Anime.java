@@ -2,6 +2,10 @@ package com.example.cse_2200_prjoect_myanimelist;
 
 import javafx.beans.property.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class Anime {
     private final StringProperty name;
     private final StringProperty rating;

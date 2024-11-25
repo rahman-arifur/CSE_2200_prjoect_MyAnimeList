@@ -100,5 +100,20 @@ public class AddAnimeController implements Initializable {
     private int getCurrentUserId() {
         return Integer.parseInt(HelloController.getUser_id());
     }
+
+    static int getAnimeIdByName(String animeName) {
+        String query = "SELECT id FROM animeinfo WHERE name = ?";
+        try (Connection conn = DriverManager.getConnection(url, user, pass);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, animeName);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Return -1 if the anime is not found
+    }
     
 }
