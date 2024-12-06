@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cse_2200_prjoect_myanimelist.AnimeDetailsController" spacing="10" alignment="CENTER">
+    <children>
+        <ImageView fx:id="animeImage" fitHeight="200.0" fitWidth="150.0" preserveRatio="true" />
+        <Label fx:id="animeName" text="Name" />
+        <Label fx:id="animeRating" text="Rating" />
+        <Label fx:id="animeEpisodes" text="Episodes" />
+        <Label fx:id="animeDescription" text="Description" wrapText="true" />
+        <Label fx:id="animeGenre" text="Genre" />
+    </children>
+</VBox>

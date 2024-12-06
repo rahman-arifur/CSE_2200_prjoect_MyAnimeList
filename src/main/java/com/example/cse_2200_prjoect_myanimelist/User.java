@@ -1,21 +1,30 @@
 package com.example.cse_2200_prjoect_myanimelist;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ResourceBundle;
-
-import static java.lang.Integer.parseInt;
 
 public class User implements Initializable {
     @FXML
@@ -58,6 +67,63 @@ public class User implements Initializable {
 
         // Load watched animes
         loadWatchedAnimes();
+
+        animeTable.setRowFactory(tv -> {
+            TableRow<Anime> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    Anime rowData = row.getItem();
+                    showAnimeDetails(rowData);
+                }
+            });
+            return row;
+        });
+    }
+
+    private void showAnimeDetails(Anime anime) {
+        String apiUrl = "https://api.jikan.moe/v4/anime?q=" + URLEncoder.encode(anime.nameProperty().get(), StandardCharsets.UTF_8);
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(apiUrl))
+                .build();
+
+        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenAccept(response -> {
+                    Gson gson = new Gson();
+                    JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
+                    JsonArray dataArray = jsonObject.getAsJsonArray("data");
+
+                    if (dataArray.size() > 0) {
+                        JsonObject animeDetails = dataArray.get(0).getAsJsonObject();
+
+                        Platform.runLater(() -> {
+                            try {
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("anime-details-view.fxml"));
+                                Scene scene = new Scene(fxmlLoader.load());
+                                AnimeDetailsController controller = fxmlLoader.getController();
+                                controller.setAnimeDetails(animeDetails);
+
+                                Stage stage = new Stage();
+                                Stage currentStage = (Stage) animeTable.getScene().getWindow();
+                                stage.setWidth(currentStage.getWidth());
+                                stage.setHeight(currentStage.getHeight());
+                                stage.setTitle("Anime Details");
+                                stage.setScene(scene);
+                                stage.setResizable(false);
+                                stage.show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    } else {
+                        System.out.println("No results found for the search query.");
+                    }
+                })
+                .exceptionally(e -> {
+                    e.printStackTrace();
+                    return null;
+                });
     }
 
     private void loadWatchedAnimes() {
@@ -68,7 +134,7 @@ public class User implements Initializable {
 
         try (Connection conn = DriverManager.getConnection(url, user, pass);
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, getCurrentUserId()); // Replace with actual user ID retrieval logic
+            stmt.setInt(1, getCurrentUserId());
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -92,7 +158,7 @@ public class User implements Initializable {
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = (Stage) logoutButton.getScene().getWindow();
         stage.setTitle("MyAnimeList");
-        Image icon = new Image(getClass().getResourceAsStream("titleicon.png")); // path to the icon
+        Image icon = new Image(getClass().getResourceAsStream("titleicon.png"));
         stage.getIcons().add(icon);
         stage.setScene(scene);
         stage.setResizable(false);
@@ -106,7 +172,6 @@ public class User implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Add Anime");
         stage.setScene(scene);
-
         stage.setResizable(false);
         stage.show();
     }
@@ -136,7 +201,7 @@ public class User implements Initializable {
         try (Connection conn = DriverManager.getConnection(url, user, pass);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, getCurrentUserId());
-            stmt.setInt(2, AddAnimeController.getAnimeIdByName(anime.nameProperty().get().toString()));
+            stmt.setInt(2, AddAnimeController.getAnimeIdByName(anime.nameProperty().get()));
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
