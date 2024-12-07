@@ -1,0 +1,105 @@
+/* General background for the root */
+.root {
+    -fx-background-color: linear-gradient(to bottom, #0078d7, #ffffff);
+}
+
+/* Label Styling */
+.label {
+    -fx-font-size: 20px;
+    -fx-font-family: "Arial";
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+/* Button Styling */
+.button {
+    -fx-background-color: #ff7070;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-font-family: "Arial";
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-pref-width: 100px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #e06363;
+}
+
+.button:pressed {
+    -fx-background-color: #d35454;
+}
+
+/* TableView Styling */
+.table-view {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 8px;
+}
+
+/* Table Cell Styling */
+.table-view .cell {
+    -fx-font-size: 14px;
+}
+
+/* TableView Row Styling */
+.table-row-cell {
+    -fx-background-color: #f9f9f9;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #e8e8e8;
+}
+
+/* Align Buttons in a Horizontal Box (HBox) */
+.hbox {
+    -fx-spacing: 15px;
+}
+
+/* Custom Styling for the Greeting */
+#greetingLabel {
+    -fx-font-size: 20px;
+    -fx-font-family: "Arial";
+    -fx-text-fill: #302a2a;
+}
+
+/* Styling for selected row in the TableView */
+.table-view .table-row-cell:selected {
+    -fx-background-color: #e06363; /* Lighter red color when selected */
+    -fx-text-fill: white; /* Ensure text is white when selected */
+}
+
+/* Table Column Headers */
+.table-view .column-header {
+    -fx-background-color: #0078d7; /* Blue background */
+    -fx-text-fill: white; /* White text color */
+    -fx-font-size: 11px; /* Reduced font size */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-padding: 5px; /* Padding for the header */
+}
+
+/* Normal row background (non-selected rows) */
+.table-view .table-row-cell {
+    -fx-background-color: #f9f9f9; /* Light background for rows */
+}
+
+/* Hover effect on rows */
+.table-view .table-row-cell:hover {
+    -fx-background-color: #e8e8e8; /* Light gray when hovered */
+}
+
+
+/* General styling for input fields */
+.text-field, .password-field {
+    -fx-pref-width: 200px;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #ff7070;
+    -fx-border-width: 1px;
+    -fx-background-color: #e6e6fa;
+    -fx-text-fill: #4b0082;
+}
+

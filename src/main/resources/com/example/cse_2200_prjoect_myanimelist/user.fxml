@@ -6,13 +6,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cse_2200_prjoect_myanimelist.User">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@user.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cse_2200_prjoect_myanimelist.User">
     <children>
         <Label layoutX="50.0" layoutY="30.0" text="Dashboard" />
-        <Button fx:id="logoutButton" layoutX="500.0" layoutY="30.0" onAction="#handleLogoutButtonAction" text="Logout" />
-        <Button fx:id="addAnimeButton" layoutX="400.0" layoutY="30.0" onAction="#handleAddAnimeButtonAction" text="Add Anime" />
-        <Button fx:id="removeAnimeButton" layoutX="236.0" layoutY="30.0" onAction="#handleRemoveAnimeButtonAction" text="Remove Anime" />
-        <Button fx:id="refreshButton" layoutX="341.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleRefreshButtonAction" text="Refresh" />
+        <Button fx:id="logoutButton" layoutX="493.0" layoutY="33.0" onAction="#handleLogoutButtonAction" text="Logout" />
+        <Button fx:id="addAnimeButton" layoutX="393.0" layoutY="33.0" onAction="#handleAddAnimeButtonAction" text="Add Anime" />
+        <Button fx:id="removeAnimeButton" layoutX="193.0" layoutY="33.0" onAction="#handleRemoveAnimeButtonAction" text="Remove Anime" />
+        <Button fx:id="refreshButton" layoutX="293.0" layoutY="33.0" mnemonicParsing="false" onAction="#handleRefreshButtonAction" text="Refresh" />
         <TableView fx:id="animeTable" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0">
             <columns>
                 <TableColumn fx:id="nameColumn" prefWidth="150.0" text="Name" />
