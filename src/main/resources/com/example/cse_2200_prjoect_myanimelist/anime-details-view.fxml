@@ -2,15 +2,25 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cse_2200_prjoect_myanimelist.AnimeDetailsController" spacing="10" alignment="CENTER">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cse_2200_prjoect_myanimelist.AnimeDetailsController" spacing="10" style="-fx-padding: 20; -fx-background-color: #f0f0f0; -fx-border-color: #cccccc; -fx-border-width: 1px; -fx-border-radius: 10px; -fx-background-radius: 10px;">
     <children>
-        <ImageView fx:id="animeImage" fitHeight="200.0" fitWidth="150.0" preserveRatio="true" />
-        <Label fx:id="animeName" text="Name" />
-        <Label fx:id="animeRating" text="Rating" />
-        <Label fx:id="animeEpisodes" text="Episodes" />
-        <Label fx:id="animeDescription" text="Description" wrapText="true" />
-        <Label fx:id="animeGenre" text="Genre" />
+        <HBox spacing="20" alignment="CENTER_LEFT">
+            <ImageView fx:id="animeImage" fitHeight="300.0" fitWidth="200.0" preserveRatio="true" />
+            <VBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="animeName" text="Name" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-font-family: 'Arial';" />
+                <Label fx:id="animeRating" text="Rating" style="-fx-font-size: 14px; -fx-font-family: 'Arial';" />
+                <Label fx:id="animeEpisodes" text="Episodes" style="-fx-font-size: 14px; -fx-font-family: 'Arial';" />
+                <Label fx:id="animeGenre" text="Genre" style="-fx-font-size: 14px; -fx-font-family: 'Arial';" />
+            </VBox>
+        </HBox>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+            <content>
+                <Label fx:id="animeDescription" text="Description" wrapText="true" style="-fx-font-size: 14px; -fx-font-family: 'Arial';" />
+            </content>
+        </ScrollPane>
     </children>
 </VBox>
